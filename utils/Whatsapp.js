@@ -15,8 +15,7 @@ class Whatsapp {
             //     clientId: this.clientId
             // }),
             puppeteer: {
-                headless: false,
-                slowMo: 100,
+                headless: true
             }
         });
 
@@ -25,6 +24,11 @@ class Whatsapp {
         this.client.on('authenticated', (session) => {
             console.log(`session authenticated is ${session}`);
             console.log(`Client for user ${this.clientId} authenticated.`);
+        });
+
+        this.client.on('remote_session_saved', (session) => {
+            console.log(`session saved is ${session}`);
+            console.log(`Client for user ${this.clientId} session saved.`);
         });
     
         this.client.on('qr', (qr) => {

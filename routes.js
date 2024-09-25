@@ -28,11 +28,8 @@ router.post('/send-message/:userId', async (req, res) => {
 // Endpoint untuk mengecek status koneksi berdasarkan user ID
 router.get('/status/:userId', (req, res) => {
     const userId = req.params.userId;
-    if (clients[userId] && clients[userId].info && clients[userId].info.wid) {
-        res.status(200).json({ status: 'connected' });
-    } else {
-        res.status(500).json({ status: 'not connected' });
-    }
+    let result = WhatsappService.checkStatus(userId);
+    res.status(result.status_code).json(result);
 });
 
 router.post('/logout/:userId', async (req, res) => {
